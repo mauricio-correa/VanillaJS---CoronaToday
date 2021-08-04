@@ -1,1 +1,7 @@
 node_modules
+
+#This is our "finished" product and we do not always want that in the repository, but sometimes it's fine (with smaller projects like this)
+#dist
+
+#Mac adds a .DS_Store file in the filesystem and we do not want that in the repository
+.DS_Store

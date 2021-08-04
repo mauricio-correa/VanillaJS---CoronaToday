@@ -1,20 +1,24 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 
 var path = require('path');
 module.exports = {
-  //...
+  entry: './src/index.js',
   devServer: {
     port: 3000,
-    historyApiFallback: {
-      index: 'public/index.html'
-    },
+    open: true
 },
   mode: 'development',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'main.js'
+  },
   plugins: [
-    new CopyPlugin({
-      patterns: [
-        { from: "public", to: "dist" },
-      ],
-    }),
-  ],  
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html'
+    })
+  ] 
 };
