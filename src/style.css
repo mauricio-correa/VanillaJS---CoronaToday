@@ -1,3 +1,241 @@
 * {
-    color: red;
+    text-decoration: none;
 }
+
+body {
+  
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+  
+  }
+     /* web: hide nav bar */
+  @media screen and (min-width: 600px) {
+      #phoneNav { display: none; }
+      #webNav { display: block; }
+  }
+
+  
+  @media screen and (max-width: 600px) {
+      #webNav { display: none; }
+      #footer { display: none; }
+      div.content {
+          font-size: 15px;
+      }
+      .modal-content {
+        width: 100%;
+      }
+  
+  .mtopnav {
+    overflow: hidden;
+    background-color: rgb(196, 109, 109);
+    position: relative;
+  }
+  
+  .mtopnav #navMenu {
+    display: none;
+  }
+  
+  .mtopnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+  }
+  
+  .mtopnav a.icon {
+    background: rgb(189, 76, 76);
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  
+  .mtopnav a:hover {
+    background-color: #ddd;
+    color: rgb(189, 76, 76);;;
+  }
+  
+  .active {
+    background-color: rgb(189, 76, 76);
+    color: rgb(196, 109, 109);
+  }
+  .content {
+      font-size:small;
+      margin:0;
+  }
+  
+  }
+  /* Nav for Web */
+  .wtopnav {
+    overflow: hidden;
+    background-color: rgb(189, 76, 76);
+  }
+  
+  .wtopnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .wtopnav a:hover {
+    background-color: rgb(189, 76, 76);
+    color: white;
+      
+  }
+  
+  .content {
+      margin:10%;
+      font-size:large;
+  }
+  
+  /* Tables */
+  
+  table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+    
+  }
+  tr {
+      border-bottom: 1px solid #ccc;
+      
+  }
+  td {
+      padding: 18px;
+      text-align: left;
+  }
+  
+  th {
+      text-align: left;   
+      padding: 10px; 
+  }
+
+.container {
+  margin: 5%
+}
+/* Flex container */
+.flex-container {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  
+  flex-wrap: wrap;
+  min-width: 320px;
+  max-width: 1220px;
+}
+.flex-item {
+   display:flex;
+align-items: center;
+height: 520px;
+width: 44%;
+margin: 30px;
+padding: 10px 0 0 10px;
+}
+
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: center;
+    background-color: #f1f1f1;
+  }
+  .footer a {
+    float:left;
+    color: rgb(189, 76, 76);
+    text-align: center;
+    padding: 14px 16px;
+    
+    font-size: 17px;
+  }
+  .footer a:hover {
+    background-color: rgb(196, 109, 109);
+    color: #f2f2f2;
+}
+
+  /*  Image */
+
+  #myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #myImg:hover {opacity: 0.7;}
+  
+  /* The Modal */
+  .modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9);
+  }
+  
+  /* Modal image */
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+  
+  /* Caption of Modal Image */
+  #caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+  }
+  
+  /* Animation */
+  .modal-content, #caption {  
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+  
+  @-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+  }
+  
+  @keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+  }
+  
+  /* The Close Button */
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }

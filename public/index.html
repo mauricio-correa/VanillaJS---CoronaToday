@@ -1,13 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="main.js"></script>
+<title>CSS Template</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="main.js"></script>
+
 </head>
 <body>
-    hi!
+
+<div class="mtopnav" id='phoneNav'>
+    <a href="#home" class="active">CoronaToday</a>
+    <div id="navMenu">
+      <a href="#news">News</a>
+      <a href="#FAQ">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+<!-- Top Navigation Menu for web-->
+  <div class="wtopnav" id="webNav">
+    <a href="#home">CoronaToday</a>
+  </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+  <h3 style="text-align: center;"><strong>SARS_Covid-2 in Germany</strong></h3>
+
+            
+
+            <div class="flex-container">
+                <div class="flex-item"><img id="myImg" src="https://api.corona-zahlen.org/map/districts" alt="CoronaToday" style="width:100%;max-width:300px">
+
+                </div>
+                <div class="flex-item" >
+                    <table >
+                        <tr>
+                          <th>City</th>
+                          <th>Population</th>
+                          <th>Cases/Week</th>
+                          <th>weekIncidence</th>
+                          <th>CasesPer100k</th>
+                          <th>Delta cases</th>
+                        </tr>
+                        <tr>
+                           <td>Köln</td>
+                          <td>1087863</td>
+                          <td>464</td>
+                          <td>42.65</td>
+                          <td>5042.27</td>
+                          <td>106</td>
+                        </tr>
+                        <tr>
+                            <td>Köln</td>
+                            <td>1087863</td>
+                            <td>464</td>
+                            <td>42.65</td>
+                            <td>5042.27</td>
+                            <td>106</td>
+                        </tr>
+                        <tr>
+                            <td>Köln</td>
+                            <td>1087863</td>
+                            <td>464</td>
+                            <td>42.65</td>
+                            <td>5042.27</td>
+                            <td>106</td>
+                        </tr>
+                        <tr>
+                            <td>Köln</td>
+                            <td>1087863</td>
+                            <td>464</td>
+                            <td>42.65</td>
+                            <td>5042.27</td>
+                            <td>106</td>
+                        </tr>
+                        
+                      </table>
+                      
+                </div>
+                
+            </div>
+<!-- Content -->
+<div class="container">
+
+
+    
+
+<div class='tableDiv' style="overflow-x:auto;"></div>
+</div>
+<!-- Footer - for web only -->
+
+<div class="footer" id="footer">
+    <div id="myLinks">
+        <a href="#news">News</a>
+        <a href="#FAQ">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+</div>
+<!-- Nav menu - for small screen devices -->
+
+<script>
+    function myFunction() {
+      var x = document.getElementById("navMenu");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+  modal.style.display = "block";
+  modalImg.src = this.src;
+  captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+  modal.style.display = "none";
+}
+    </script>
 </body>
 </html>
