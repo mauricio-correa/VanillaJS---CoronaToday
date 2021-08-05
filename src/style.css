@@ -3,19 +3,18 @@
 }
 
 body {
-  
     font-family: Arial, Helvetica, sans-serif;
     margin: 0;
   
   }
      /* web: hide nav bar */
-  @media screen and (min-width: 600px) {
+  @media (min-width: 600px) {
       #phoneNav { display: none; }
       #webNav { display: block; }
   }
 
   
-  @media screen and (max-width: 600px) {
+  @media (max-width: 600px) {
       #webNav { display: none; }
       #footer { display: none; }
       div.content {
@@ -64,7 +63,9 @@ body {
       font-size:small;
       margin:0;
   }
-  
+  .table-overflow {
+    overflow-x:auto;
+}
   }
   /* Nav for Web */
   .wtopnav {
@@ -111,7 +112,7 @@ body {
   
   th {
       text-align: left;   
-      padding: 10px; 
+      padding: 18px; 
   }
 
 .container {
@@ -119,26 +120,33 @@ body {
 }
 /* Flex container */
 .flex-container {
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-align-items: center;
+  justify-content: center;
   align-items: center;
-  
-  flex-wrap: wrap;
-  min-width: 320px;
-  max-width: 1220px;
 }
-.flex-item {
-   display:flex;
-align-items: center;
-height: 520px;
-width: 44%;
-margin: 30px;
-padding: 10px 0 0 10px;
+.flex-grid {
+  position: relative;
+  width:auto;
+  display: flex;
+  justify-content:  space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+}
+.flex-container .card {
+  position: relative;
+  max-width: 100%;
+  margin: 10px;
+  padding: 15px;
+  display: flex;
+   
 }
 
+@media (max-width: 1500px){
+  .flex-grid {
+    flex-direction: column;
+  }
+}
 
   /* Footer */
   .footer {
@@ -165,6 +173,8 @@ padding: 10px 0 0 10px;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    width:100%;
+    max-width: 600px
   }
   
   #myImg:hover {opacity: 0.7;}
@@ -238,4 +248,38 @@ padding: 10px 0 0 10px;
     color: #bbb;
     text-decoration: none;
     cursor: pointer;
+  }
+
+
+  .loader {
+    position: fixed;  
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid rgb(189, 76, 76);;
+    border-bottom: 16px solid rgb(189, 76, 76);;
+    width: 120px;
+    height: 120px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+  body:not(.loaded) .hide-for-load {
+    display: none;
+  }
+  body.loaded .hide-after-load {
+    display: none;
+  }
+  
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
