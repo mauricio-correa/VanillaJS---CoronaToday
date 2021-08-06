@@ -8,13 +8,14 @@ body {
   
   }
      /* web: hide nav bar */
-  @media (min-width: 600px) {
+  @media (min-width: 700px) {
       #phoneNav { display: none; }
       #webNav { display: block; }
   }
 
   
-  @media (max-width: 600px) {
+  @media (max-width: 700px) {
+
       #webNav { display: none; }
       #footer { display: none; }
       div.content {
@@ -23,6 +24,7 @@ body {
       .modal-content {
         width: 100%;
       }
+      
   
   .mtopnav {
     overflow: hidden;
@@ -132,6 +134,7 @@ body {
   align-items: center;
   flex-wrap: wrap;
 
+
 }
 .flex-container .card {
   position: relative;
@@ -142,10 +145,11 @@ body {
    
 }
 
-@media (max-width: 1500px){
+@media (max-width: 1400px){
   .flex-grid {
     flex-direction: column;
   }
+
 }
 
   /* Footer */

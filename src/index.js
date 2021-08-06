@@ -36,15 +36,19 @@ function fetchData() { fetch(url, {
     });
     if (cases.length == 0){
         alert('An error has occurred. Self destruction will begin in ten seconds.')
-        console.log('chau')
         var myobj = document.getElementById("content");
         myobj.remove();
 
+    } else if(cases.length > 0) {
+        var top5 = [];
+        top5 = cases.slice(0,15)
+        appendData(cases)
+        appendDataTop5(top5)
+
     } else {
-    var top5 = [];
-    top5 = cases.slice(0,15)
-    appendData(cases)
-    appendDataTop5(top5)
+        alert('Sorry, the server is down. Try it later...')
+        var myobj = document.getElementById("content");
+        myobj.remove();
 }
 })
 
