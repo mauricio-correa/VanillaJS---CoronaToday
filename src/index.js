@@ -1,202 +1,186 @@
 import "./style.css";
-const lodash = require("lodash");  
 
-const fetch = require('node-fetch');
-let headers = new Headers ({
+
+const lodash = require("lodash");
+
+let headers = new Headers({
     "Accept": "application/json",
     "Content-Type": "application/json",
-      });
+});
 
 var url = 'https://api.corona-zahlen.org/districts'
 
 // fetch the data from the API
-function fetchData() { fetch(url, {
-    method: 'GET',
-    headers: headers,
-})
-.then((res) => res.json())
-.then((data)=> {
-    createTable()
-    createTableTop5()
-    var cases = [];
-    
-    for(var i in data.data) {    
-        var item = data.data[i];   
-        cases.push({ 
-            "name" : item.name,
-            "population": item.population,
-            "cases": item.cases,
-            "casesPerWeek": item.casesPerWeek,
-            "casesPer100k": item.casesPer100k,
-            "weekIncidence": item.weekIncidence
-        });
-    }
-    cases.sort((a, b) => {
-        return  b.weekIncidence - a.weekIncidence;
-    });
-    if (cases.length == 0){
-        alert('An error has occurred. Self destruction will begin in ten seconds.')
-        var myobj = document.getElementById("content");
-        myobj.remove();
+function fetchData() {
+    fetch(url, {
+        method: 'GET',
+        headers: headers,
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            createTable()
+            createTableTop5()
 
-    } else if(cases.length > 0) {
-        var top5 = [];
-        top5 = cases.slice(0,15)
-        appendData(cases)
-        appendDataTop5(top5)
+            if (!data.data) {
+                alert('An error has occurred. Self destruction will begin in ten seconds.')
+                let myobj = document.getElementById("content");
+                myobj.remove();
 
-    } else {
-        alert('Sorry, the server is down. Try it later...')
-        var myobj = document.getElementById("content");
-        myobj.remove();
-}
-})
+            } else if (data.data) {
+                document.body.classList.add("loaded");
+                // let top5 = [];
+                //top5 = cases.slice(0, 15)
+                let Cases = Object.values(data.data)
+                Cases.sort((a, b) => {
+                    return  b.weekIncidence - a.weekIncidence;
+                });
 
-.catch((err) => console.log(err)); 
+                appendDataTop5(Cases)
+                appendData(data.data)
+
+            } else {
+                alert('Sorry, the server is down. Try it later...')
+                var myobj = document.getElementById("content");
+                myobj.remove();
+            }
+        })
+
+        .catch((err) => console.log(err));
 };
 
-// create CoronaTable dinamically - all districts
+// fuctoins to create elements CleanCode
+function createElement(elementName, className) {
+    let element = document.createElement(elementName);
+    element.className = className
+    return element
+}
+function createElementWithInnerText(elementName, innerText) {
+    let element = document.createElement(elementName);
+    element.innerText = innerText
+    return element
+}
+// function to round number.
+function roundIt(valueToRound) {
+    return lodash.round(valueToRound, 2);
+}
+const tableDiv = document.querySelector("div.tableDiv")
+let tableHeaders = ["nr.", "City", "Population", "Cases", "Cases/Week", "Casses/100k", "Week Incidence"]
 
- const tableDiv = document.querySelector("div.tableDiv")
- let tableHeaders = ["nr.", "City", "Population", "Cases", "Cases/Week", "Casses/100k", "Week Incidence"]
+function createTable() {
 
- function createTable (){
-     let coronaTable = document.createElement('table')
-     coronaTable.className = 'coronaTableTop5'
-
-     let coronaTableHead = document.createElement('thead')
-     coronaTableHead.className = 'tableHead'
-
-     let coronaTableHeaderRow = document.createElement('tr')
-     coronaTableHeaderRow.className = 'tableHeaderRow'
-     
-     tableHeaders.forEach(header => {
-         let tableHeader = document.createElement('th')
-         tableHeader.innerText = header
-         coronaTableHeaderRow.append(tableHeader)
-     })
-
-     coronaTableHead.append(coronaTableHeaderRow)
-     coronaTable.append(coronaTableHead)
-
-     let coronaTableBody = document.createElement('tbody')
-     coronaTableBody.className = "coronaTableBody"
-
-     coronaTable.append(coronaTableBody)
-     tableDiv.append(coronaTable)
- }
-
- // append data to the CoronaTable dinamically - all  districts
- function appendData(c) {
-    for(let i=0; i< c.length; i++){
-        let singleScore = c[i]
-        let singleScoreIndex = (i+1)
-
-         const coronaboardTable = document.querySelector('.coronaTableTop5')
-         let TableBodyRow = document.createElement('tr')
-         TableBodyRow.className = 'scoreboardTableBodyRow'
-
-         let numeral = document.createElement('td')
-         numeral.innerText = singleScoreIndex
-
-         let name = document.createElement('td')
-         name.innerText = singleScore.name
-
-         let population = document.createElement('td')
-         let popul = new Intl.NumberFormat().format(singleScore.population)
-         population.innerText = popul
-
-         let cases = document.createElement('td')
-         let casesnr = new Intl.NumberFormat().format(singleScore.cases)
-         cases.innerText = casesnr
-
-         let casesPerWeek = document.createElement('td')
-         let casesPWeek = new Intl.NumberFormat().format(singleScore.casesPerWeek)
-         casesPerWeek.innerText = casesPWeek
-
-         let casesPer100k = document.createElement('td')
-         var rounded = lodash.round(singleScore.casesPer100k, 2);
-         let casesPweek = new Intl.NumberFormat().format(rounded)
-         casesPer100k.innerText = casesPweek
-
-         let weekIncidence = document.createElement('td')
-         var rounded = lodash.round(singleScore.weekIncidence, 2);
-         weekIncidence.innerText = rounded
-
-         TableBodyRow.append(numeral, name, population, cases, casesPerWeek, casesPer100k, weekIncidence)
-        
-         coronaboardTable.append(TableBodyRow)
-
+   let coronaTable = createElement('table', 'coronaTable')
+   
+    let coronaTableHead = createElement('thead', 'tableHead')
+   
+    let coronaTableHeaderRow = createElement('tr', 'tableHeaderRow')
+   
+    function createTableHeader(headerName) {
+        let tableHeader = createElement('th', 'tableHeaderRow')
+        tableHeader.innerText = headerName
+        coronaTableHeaderRow.append(tableHeader)
     }
- }
 
-// create CoronaTable dinamically - top 5
+    tableHeaders.forEach(createTableHeader)
+
+    coronaTableHead.append(coronaTableHeaderRow)
+    coronaTable.append(coronaTableHead)
+   
+    let coronaTableBody = createElement('tbody', 'coronaTableBody')
+    
+    coronaTable.append(coronaTableBody)
+    tableDiv.append(coronaTable)
+}
+
+// append data to the CoronaTable dinamically - all  districts
+function appendData(allCases) {
+
+    
+    let myKeys = Object.keys(allCases);
+    let singleScoreIndex = 1
+
+    myKeys.forEach(key => {
+            let singleScore = allCases[key]
+            const coronaboardTable = document.querySelector('.coronaTable')
+    
+            let TableBodyRow = createElement('tr', 'scoreboardTableBodyRow')
+    
+            let numeral = createElementWithInnerText('td', singleScoreIndex)
+    
+            let name = createElementWithInnerText('td', singleScore.name)
+    
+            let population = createElementWithInnerText('td', new Intl.NumberFormat().format(singleScore.population))
+    
+            let cases = createElementWithInnerText('td', new Intl.NumberFormat().format(singleScore.cases))
+    
+            let casesPerWeek = createElementWithInnerText('td', new Intl.NumberFormat().format(singleScore.casesPerWeek))
+    
+            let casesPer100k = createElementWithInnerText('td', new Intl.NumberFormat().format(roundIt(singleScore.casesPer100k)))
+    
+            let weekIncidence = createElementWithInnerText('td', roundIt(singleScore.weekIncidence))
+    
+            TableBodyRow.append(numeral, name, population, cases, casesPerWeek, casesPer100k, weekIncidence)
+    
+            coronaboardTable.append(TableBodyRow)
+    
+            singleScoreIndex++;
+
+
+    })
+
+}
+
 const tableDivTop5 = document.querySelector("div.tableDivTop5")
 let tableHeadersTop5 = ["nr.", "City", "Casses/100k", "Week Incidence"]
 
 
-function createTableTop5 (){
-    let coronaTable = document.createElement('table')
-    coronaTable.className = 'coronaTable'
+function createTableTop5() {
 
-    let coronaTableHead = document.createElement('thead')
-    coronaTableHead.className = 'tableHead'
+    let coronaTable = createElement('table', 'coronaTableTop5')
 
-    let coronaTableHeaderRow = document.createElement('tr')
-    coronaTableHeaderRow.className = 'tableHeaderRow'
-    
+    let coronaTableHead = createElement('thead', 'tableHead')
+
+    let coronaTableHeaderRow = createElement('tr', 'tableHeaderRow')
+   
+
     tableHeadersTop5.forEach(header => {
-        let tableHeader = document.createElement('th')
-        tableHeader.innerText = header
+        let tableHeader = createElementWithInnerText('td', header)
         coronaTableHeaderRow.append(tableHeader)
     })
 
     coronaTableHead.append(coronaTableHeaderRow)
     coronaTable.append(coronaTableHead)
 
-    let coronaTableBody = document.createElement('tbody')
-    coronaTableBody.className = "coronaTableBody"
-
+    let coronaTableBody = createElement('tbody', "coronaTableBody")
+ 
     coronaTable.append(coronaTableBody)
-    tableDivTop5.append(coronaTable)
+   tableDivTop5.append(coronaTable)
 }
 
 // append data to the CoronaTable dinamically - top 5
-function appendDataTop5(c) {
-    console.log('c    ---', c)
-   for(let i=0; i< c.length; i++){
-       let singleScore = c[i]
-       let singleScoreIndex = (i+1)
+function appendDataTop5(allCases) {
+    
+    for(let i=0; i<16; i++){
+        let singleScore = allCases[i]
+        let singleScoreIndex = (i+1)
+        
+        const coronaboardTable = document.querySelector('.coronaTableTop5')
 
-        const coronaboardTable = document.querySelector('.coronaTable')
-        let TableBodyRow = document.createElement('tr')
-        TableBodyRow.className = 'scoreboardTableBodyRow'
-
-        let numeral = document.createElement('td')
-        numeral.innerText = singleScoreIndex
-
-        let name = document.createElement('td')
-        name.innerText = singleScore.name
-
+        let TableBodyRow = createElement('tr', 'scoreboardTableBodyRow')
        
-        let casesPer100k = document.createElement('td')
-        var rounded = lodash.round(singleScore.casesPer100k, 2);
-        let casesPweek = new Intl.NumberFormat().format(rounded)
-        casesPer100k.innerText = casesPweek
-
-        let weekIncidence = document.createElement('td')
-        var rounded = lodash.round(singleScore.weekIncidence, 2);
-        weekIncidence.innerText = rounded
-
+        let numeral = createElementWithInnerText('td', singleScoreIndex)
+       
+        let name = createElementWithInnerText('td', singleScore.name)
+       
+        let casesPer100k = createElementWithInnerText('td', new Intl.NumberFormat().format(roundIt(singleScore.casesPer100k)))
+       
+        let weekIncidence = createElementWithInnerText('td', roundIt(singleScore.weekIncidence))
+       
         TableBodyRow.append(numeral, name, casesPer100k, weekIncidence)
         coronaboardTable.append(TableBodyRow)
 
-   }
+        singleScoreIndex++;
+        };
 }
- 
-// call the functions
- fetchData();
 
- setTimeout(function setTimeout() {
-    document.body.classList.add("loaded");
-  }, 1000);
+// call the functions
+fetchData();
