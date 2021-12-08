@@ -152,6 +152,14 @@ body {
     flex-direction: column;
     max-width: 100%;
   }
+  #myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width:50%;
+    max-width: 500px;
+  
+  }
 
 }
 
