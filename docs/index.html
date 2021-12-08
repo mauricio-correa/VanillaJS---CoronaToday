@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>CoronaToday</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="main.js"></script>
+
+<script defer src="main.js"></script></head>
+
+<body>
+  <div class="mtopnav" id='phoneNav'>
+    <a href="#home" class="active"><strong>VanilaJS </strong>- CoronaToday </a>
+    <div id="navMenu">
+      <a href="#news">News</a>
+      <a href="#FAQ">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+  <!-- Top Navigation Menu for web-->
+  <div class="wtopnav" id="webNav">
+    <a href="#home"> <strong>VanilaJS </strong> - CoronaToday </a>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01">
+    <div id="caption"></div>
+  </div>
+
+  <!-- Loader -->
+  <div id="loading" class="hide-after-load">
+    <div class="loader" id="loading"></div>
+  </div>
+  <!-- Content -->
+  <div class="container hide-for-load" id='content'>
+    <h3 style="text-align: center;"><strong>SARS_Covid-2 in Germany - Top 15 Week Incidence Cities</strong></h3>
+    <div class="flex-container">
+      <div class="flex-grid">
+        <div class="card">
+          <img id="myImg" src="https://api.corona-zahlen.org/map/districts" alt="CoronaToday">
+
+        </div>
+        <div class="card">
+
+          <div class="table-overflow">
+            <div class='tableDivTop5'></div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <br><br>
+    <h3 style="text-align: center;"><strong>SARS_Covid-2 in Germany - All Cities</strong></h3>
+    <div class='tableDiv' style="overflow-x:auto;"></div>
+  </div>
+  <!-- Footer - for web only -->
+
+  <div class="footer hide-for-load" id="footer">
+    <div id="myLinks">
+      <a href="#news">News</a>
+      <a href="#FAQ">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <!-- Nav menu - for small screen devices -->
+
+  <script>
+    function myFunction() {
+      var x = document.getElementById("navMenu");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var img = document.getElementById("myImg");
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function () {
+      modal.style.display = "block";
+      modalImg.src = this.src;
+      captionText.innerHTML = this.alt;
+    }
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
+    }
+  </script>
+</body>
+
+</html>
